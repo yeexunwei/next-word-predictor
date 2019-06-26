@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Next Word Predictor</title>
+	<style>
+		body{
+			background-image: linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+
+		}
+		header{
+			padding: 10px;
+			/margin: 10px;/
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			text-align: center;
+			background-image: linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+			color: white;
+		}
+
+		footer{
+			/background-color: #94af76;/
+			background-image: linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+			color: white;
+			text-align: center;
+			position: fixed;
+  			width: 100%;
+  			right: 0;
+  			bottom: 0;
+		}
+
+		.credit{
+			align-self: left;
+			color: white;
+		}
+
+		input{
+		    padding: 10px;
+		    margin: 10px;
+		    margin-bottom: 0px;
+		    height: 20px;
+		    width: 500px;
+		    border:1px solid #eaeaea;
+		    outline:none;
+		}
+
+		input:hover{
+	    	border-color: #a0a0a0 #b9b9b9 #b9b9b9 #b9b9b9;
+		}
+
+		input:focus{
+		    border-color:#4d90fe;
+		}
+
+		input[type="submit"] {
+		    border-radius: 2px;
+		    background: #f2f2f2;
+		    border: 1px solid #f2f2f2;
+		    color: #757575;
+		    cursor: default;
+		    font-size: 14px;
+		    font-weight: bold;
+		    width: 100px;
+		    padding: 0 16px;
+		    height:36px;
+		}
+
+		input[type="submit"]:hover {
+		    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+		    background: #f8f8f8;
+		    border: 1px solid #c6c6c6;
+		    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+		    color: #222;
+		}
+
+		.dropdown{
+			border: 1px solid #c6c6c6;
+		    margin: 10px;
+		    margin-top: 0px;
+		    width: 520px;
+		    background-color: white;
+		}
+
+		.dropdown-content{
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			text-align: left;
+			/margin-left: 10px;/
+		}
+
+		.dropdown-content:hover {
+			background-color: #ddd;
+			cursor: pointer;
+		}
+
+
+		.dropbtn {
+		  background-color: #3498DB;
+		  color: white;
+		  padding: 16px;
+		  font-size: 16px;
+		  border: none;
+		  cursor: pointer;
+		}
+
+		.dropbtn:hover, .dropbtn:focus {
+		  background-color: #2980B9;
+		}
+
+		.dropdownbtn {
+		  position: relative;
+		  display: inline-block;
+		}
+
+		.dropdownbtn-content {
+		  display: none;
+		  position: absolute;
+		  background-color: #f1f1f1;
+		  min-width: 160px;
+		  overflow: auto;
+		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		  z-index: 1;
+		}
+
+		.dropdownbtn-content a {
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		}
+
+		.dropdownbtn a:hover {background-color: #ddd;}
+
+		.showbtn {display: block;}
+
+		#loading {
+		   width: 100%;
+		   height: 100%;
+		   top: 0;
+		   left: 0;
+		   position: fixed;
+		   display: none;
+		   opacity: 0.7;
+		   background-color: #fff;
+		   z-index: 99;
+		   text-align: center;
+		}
+
+		#loading-image {
+		  /position: absolute;/
+		  /display: block;/
+		  margin: auto;
+		  z-index: 100;
+		}
+
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Next Word Predictor</h1>
+			<div>
+				<h5 class = "credit">Prepared by: <br>
+				Yee Xun Wei WIE160041 <br>
+				Lim Shin Wei WID160015 <br>
+				Tan Lay Yan WIF160058 <br>
+				Wilson Tan Wei Hian WIF160064
+				</h5>
+			</div>
+			<div class="dropdownbtn">
+			  <button onclick="myDropDownBtnFunction()" class="dropbtn" id="LanguageBtn">Language ▼</button>
+			  <div id="myDropdown" class="dropdownbtn-content">
+			    <a id="EN" href="#English" onclick="changeMode(this.id)">English</a>
+			    <a id="ML" href="#Malay" onclick="changeMode(this.id)">Malay</a>
+			    <a id="CN" href="#Chinese" onclick="changeMode(this.id)">Chinese</a>
+			    <a id="MY" href="#Malaysian" onclick="changeMode(this.id)">Malaysian!</a>
+			  </div>
+			</div>
+	</header>
+
+	<main style="text-align: center;">
+		<div style="display: inline-block;">
+			<input type="text" id="textInput" name="textInput" placeholder="Type your text here..."> 
+			<!-- onkeyup="callSearchAPI()" -->
+	       	<div class = "dropdown" id="dropdown">
+	       		<!-- <option class="dropdown-content" value=0 onclick="appendWords(value)">A</option>
+	       		<option class="dropdown-content" value=1 onclick="appendWords(value)">B</option>
+	       		<option class="dropdown-content" value=2 onclick="appendWords(value)">C</option> -->
+			</div>
+		</div>
+		<div id="loading" >
+  			<img id="loading-image" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif" alt="Loading..." />
+		</div>
+		
+	</main>
+</body>
+	
+	<script type="text/javascript">
+		let currentMode = 'EN'
+		console.log(currentMode)
+		var pressedValue = -1;
+		var textInTextField = document.getElementById('textInput');
+		var dropdownContentList;
+		textInTextField.addEventListener("keyup", function(event) {
+			if(event.key != "ArrowDown" && event.key !='ArrowUp' && event.key != "Enter") {
+				callSearchAPI();
+			}
+
+	    	if (event.key === "Enter") {
+	    		if(pressedValue == -1) return;
+	        	console.log('Event enter key:?', event.key);
+	        	appendWords(pressedValue);
+	    	}
+	    	else if (event.key === "ArrowDown"){
+	    		var removedColorIndex = pressedValue; 
+	    		pressedValue++;
+	    		if (pressedValue > 2) {
+	    			pressedValue = 0;
+	    		}
+	    		if(pressedValue >= 0 && removedColorIndex >=0){
+	    			dropdownContentList[removedColorIndex].style.backgroundColor = 'white';
+	    		}
+	    		if(pressedValue != -1){
+	    			dropdownContentList[pressedValue].style.backgroundColor = '#ddd';
+	    		}
+	    		
+	    		console.log('Event key:', event.key, event);
+	    	}else if(event.key ==='ArrowUp'){
+	    		var removedColorIndex = pressedValue; 
+	    		pressedValue--;
+	    		if (pressedValue < 0) {
+	    			pressedValue = 2;
+	    		}
+	    	}
+	    	if(pressedValue >= 0 && removedColorIndex >=0){
+	    		dropdownContentList[removedColorIndex].style.backgroundColor = 'white';
+	    	}
+	    	if(pressedValue != -1){
+	    		dropdownContentList[pressedValue].style.backgroundColor = '#ddd';
+	    	}
+	    	
+	    	console.log('KeyboardSelectedValue:', pressedValue);
+		});
+
+		function changeOptionBackgroundColor(){
+			var dropdownContentList = document.getElementsByClassName('dropdown-content');
+			
+		}
+
+		function callSearchAPI(){
+			var textInTextField = document.getElementById('textInput').value;
+			console.log(textInTextField);
+
+			if(textInTextField == ''){
+				document.getElementById('dropdown').innerHTML = "";
+			}else{
+				//call API with textInTextField
+				var url = 'http://127.0.0.1:8000/prediction/';
+				var data = {text: textInTextField};
+
+				fetch(url, {
+				  method: 'POST', // or 'PUT'
+				  body: JSON.stringify(data), // data can be `string` or {object}!
+				  headers:{
+				    'Content-Type': 'application/json'
+				  }
+				}).then(res => res.json())
+				.then(response => {
+					console.log('Success:', JSON.stringify(response))
+					var nextWordList = [response['predicted_words'][0]['word'], response['predicted_words'][1]['word'],response['predicted_words'][2]['word']]; // replace with the word return from API
+					listSuggestion(nextWordList);
+				})
+			}
+			
+		}
+
+		function appendWords(selectValue) {
+			console.log(selectValue);
+			var selectWordArray = document.getElementsByClassName('dropdown-content');
+			// console.log(selectWordArray[selectValue]);
+			document.getElementById('textInput').value += ' '+ selectWordArray[selectValue].text;
+			callSearchAPI();
+		}
+
+
+		function listSuggestion(nextWordList){
+			document.getElementById('dropdown').innerHTML = "<option class=\"dropdown-content\" value=0 onclick=\"appendWords(value)\"></option><option class=\"dropdown-content\" value=1 onclick=\"appendWords(value)\"></option><option class=\"dropdown-content\" value=2 onclick=\"appendWords(value)\"></option>";
+			for (var i = 0; i < nextWordList.length ; i++) {
+				document.getElementsByClassName('dropdown-content')[i].text = nextWordList[i];
+			}
+			//added
+			dropdownContentList = document.getElementsByClassName('dropdown-content');
+			pressedValue = -1
+		}
+
+		function myDropDownBtnFunction() {
+  			document.getElementById("myDropdown").classList.toggle("showbtn");
+		}
+
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+		    var dropdowns = document.getElementsByClassName("dropdownbtn-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('showbtn')) {
+		        openDropdown.classList.remove('showbtn');
+		      }
+		    }
+		  }
+		}
+
+		changeMode = (clickedId) => {
+			console.log(currentMode)
+			if (clickedId === currentMode){
+				return
+			}
+			document.getElementById("loading").style.display = 'block'
+			var url = 'http://127.0.0.1:8000/changemode/';
+			var data = {mode: clickedId};
+
+			fetch(url, {
+			  method: 'POST', // or 'PUT'
+			  body: JSON.stringify(data), // data can be `string` or {object}!
+			  headers:{
+			    'Content-Type': 'application/json'
+			  }
+			}).then(res => {
+				return res.json()
+			}).then(response => {
+				document.getElementById("loading").style.display = 'none'
+				console.log('Success:', JSON.stringify(response))
+				currentMode = clickedId
+				console.log(currentMode)
+
+				var languageBtn = document.getElementById('LanguageBtn');
+
+				if(currentMode == 'EN'){
+					languageBtn.innerHTML = 'English ▼';
+
+				}else if (currentMode == 'CN'){
+
+					languageBtn.innerHTML = 'Chinese ▼';
+
+				}else if(currentMode == 'MY'){
+
+					languageBtn.innerHTML = 'Malaysian ▼';
+
+				}else if (currentMode == 'ML'){
+
+					languageBtn.innerHTML = 'Malay ▼';
+
+				}
+			})
+		}
+
+	</script>
+
+	<footer>
+		<br><h4>WIX 3001 Soft Computing Next Word Predictor</h4><br>
+	</footer>
+</html>
