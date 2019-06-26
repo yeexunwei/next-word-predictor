@@ -1,14 +1,21 @@
 # next-word-predictor
-This project is developed using Python Django as backend and JavaScript/HTML as Frontend.
 
-## Models Download Link
-Download models here: https://drive.google.com/file/d/1qw16zjotkwaY3Snqods8ozjP95hEiJSn/view?usp=sharing
-and extract the models to directory /nextwordpredictor/predictormodel/models/
+Predict next word based on previous word. Four models are trained with following data:
 
-## Start Server
+1. English - [blogger.com](http://u.cs.biu.ac.il/~koppel/BlogCorpus.htm)
+2. Malay - [github](https://github.com/huseinzol05/Malaya-Dataset)
+3. Chinese - [tsinghua](http://thuctc.thunlp.org/)
+4. Malaysian Twitter tweets
+
+## Getting Started
+
+### Prerequisites
+
 Install python dependencies via command
 
 `pip install -r requirements.txt`
+
+## Deployment
 
 Start server via command
 
@@ -17,3 +24,18 @@ Start server via command
 from the nextwordpredictor/ directory and navigate to 
 
 `http://127.0.0.1:8000/index`
+
+## Built With
+
+* Python Django - Backend
+* JavaScript/HTML - Frontend
+
+## Authors
+
+* **Shinichi**
+* **Leanna**
+
+
+## Acknowledgments
+
+*
