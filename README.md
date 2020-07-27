@@ -18,8 +18,8 @@ The purpose of this project is to train next word predicting models. Models shou
 * Js, HTML
 
 ## Project Description
-* `model-training` files to train models
-* `nextwordpredictor` Django application, loads trained models
+* `model-training` - files to train models
+* `nextwordpredictor` - Django application, loads trained models
 
 Data are from following sources:
 1. English - [blogger.com](http://u.cs.biu.ac.il/~koppel/BlogCorpus.htm)
