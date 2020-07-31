@@ -9,7 +9,7 @@ The purpose of this project is to train next word predicting models. Models shou
 * Natural Language Processing
 * RNN, LSTM
 
-![models architecture](assets/layer.png)
+![Tensorflow architecture](assets/layer.png)
 
 ### Technologies
 * Python
@@ -43,7 +43,7 @@ Install python dependencies via command
 
 1. Start server via command `python3 manage.py runserver` from the nextwordpredictor/ directory and navigate to `http://127.0.0.1:8000/index`.
 
-![screenshot of website running](assets/prednext.png)
+![Screenshot of website running](assets/predword.png)
 
 ## Contributing Members
 
