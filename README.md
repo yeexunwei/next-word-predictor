@@ -1,5 +1,5 @@
 # next-word-predictor
-Predicting what word comes next with Tensorflow.
+Predicting what word comes next with Tensorflow. Implement RNN and LSTM to develope four models of various languages.
 
 ## Project Intro
 The purpose of this project is to train next word predicting models. Models should be able to suggest the next word after user has input word/words. Four models are trained with datasets of different languages. Python Django as backend and JavaScript/HTML as Frontend.
@@ -9,7 +9,7 @@ The purpose of this project is to train next word predicting models. Models shou
 * Natural Language Processing
 * RNN, LSTM
 
-![models architecture](assets/img1.png)
+![models architecture](assets/layer.png)
 
 ### Technologies
 * Python
@@ -43,7 +43,7 @@ Install python dependencies via command
 
 1. Start server via command `python3 manage.py runserver` from the nextwordpredictor/ directory and navigate to `http://127.0.0.1:8000/index`.
 
-![screenshot of website running](assets/img2.png)
+![screenshot of website running](assets/prednext.png)
 
 ## Contributing Members
 
