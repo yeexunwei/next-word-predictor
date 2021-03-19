@@ -6,7 +6,7 @@ bleach==3.1.4
 decorator==4.4.0
 defusedxml==0.6.0
 Django==2.2.13
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 entrypoints==0.3
 gast==0.2.2
 grpcio==1.19.0
