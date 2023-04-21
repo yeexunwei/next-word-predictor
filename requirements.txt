@@ -51,7 +51,7 @@ qtconsole==4.5.0
 scipy==1.2.1
 Send2Trash==1.5.0
 six==1.12.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 tensorboard==1.11.0
 tensorflow-gpu==1.15.2
 termcolor==1.1.0
